@@ -41,6 +41,9 @@ public class UsuarioService {
             existingUsuario.setEmail(usuarioDetails.getEmail());
             existingUsuario.setCpf(usuarioDetails.getCpf());
             existingUsuario.setCEP(usuarioDetails.getCEP());
+            existingUsuario.setRua(usuarioDetails.getRua());
+            existingUsuario.setBairro(usuarioDetails.getBairro());
+            existingUsuario.setNumero(usuarioDetails.getNumero());
             existingUsuario.setCidade(usuarioDetails.getCidade());
             existingUsuario.setPais(usuarioDetails.getPais());
             existingUsuario.setEstado(usuarioDetails.getEstado());

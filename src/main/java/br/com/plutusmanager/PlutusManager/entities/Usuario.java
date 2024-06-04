@@ -36,6 +36,15 @@ public class Usuario {
     private String cep;
 
     @Column(nullable = false)
+    private String rua;
+
+    @Column(nullable = false)
+    private String bairro;
+
+     @Column(nullable = false)
+    private String numero;
+
+    @Column(nullable = false)
     private String cidade;
 
     @Column(nullable = false)
@@ -48,7 +57,7 @@ public class Usuario {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
 
-    @Column(nullable = false)
+    @Column
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate vencimento;
 
@@ -121,6 +130,39 @@ public class Usuario {
 
     public void setCEP(String cep) {
         this.cep = cep;
+    }
+
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getRua() {
+        return rua;
+    }
+
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
     }
 
     public String getCidade() {
