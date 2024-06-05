@@ -40,16 +40,16 @@ public class UsuarioService {
             existingUsuario.setSenha(usuarioDetails.getSenha());
             existingUsuario.setEmail(usuarioDetails.getEmail());
             existingUsuario.setCpf(usuarioDetails.getCpf());
-            existingUsuario.setCEP(usuarioDetails.getCEP());
+            existingUsuario.setCep(usuarioDetails.getCep());
             existingUsuario.setRua(usuarioDetails.getRua());
             existingUsuario.setBairro(usuarioDetails.getBairro());
-            existingUsuario.setNumeroresidencia(usuarioDetails.getNumeroresidencia());
+            existingUsuario.setNumeroResidencia(usuarioDetails.getNumeroResidencia());
             existingUsuario.setTelefone(usuarioDetails.getTelefone());
             existingUsuario.setCidade(usuarioDetails.getCidade());
             existingUsuario.setPais(usuarioDetails.getPais());
             existingUsuario.setEstado(usuarioDetails.getEstado());
             existingUsuario.setDataNascimento(usuarioDetails.getDataNascimento());
-            existingUsuario.setvencimento(usuarioDetails.getvencimento());
+            existingUsuario.setVencimento(usuarioDetails.getVencimento());
             return usuarioRepository.save(existingUsuario);
         } else {
             throw new RuntimeException("Usuario não encontrado por ID " + id);

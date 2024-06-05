@@ -41,8 +41,8 @@ public class Usuario {
     @Column(nullable = false)
     private String bairro;
 
-     @Column(nullable = false)
-    private String numeroresidencia;
+     @Column(name = "numero_residencia", nullable = false)
+    private String numeroResidencia;
 
      @Column
      private String telefone;
@@ -125,15 +125,6 @@ public class Usuario {
         this.cpf = cpf;
     }
 
-    public String getCEP() {
-        return cep;
-    }
-
-    public void setCEP(String cep) {
-        this.cep = cep;
-    }
-
-
     public String getCep() {
         return cep;
     }
@@ -141,6 +132,7 @@ public class Usuario {
     public void setCep(String cep) {
         this.cep = cep;
     }
+
 
     public String getRua() {
         return rua;
@@ -158,8 +150,8 @@ public class Usuario {
         this.bairro = bairro;
     }
 
-    public String getNumeroresidencia() {
-        return numeroresidencia;
+    public String getNumeroResidencia() {
+        return numeroResidencia;
     }
 
     public String getTelefone() {
@@ -170,8 +162,8 @@ public class Usuario {
         this.telefone = telefone;
     }
 
-    public void setNumeroresidencia(String numeroresidencia) {
-        this.numeroresidencia = numeroresidencia;
+    public void setNumeroResidencia(String numeroResidencia) {
+        this.numeroResidencia = numeroResidencia;
     }
 
     public String getCidade() {
@@ -206,11 +198,11 @@ public class Usuario {
         this.dataNascimento = dataNascimento;
     }
 
-    public LocalDate getvencimento() {
+    public LocalDate getVencimento() {
         return vencimento;
     }
 
-    public void setvencimento(LocalDate vencimento) {
+    public void setVencimento(LocalDate vencimento) {
         this.vencimento = vencimento;
     }
 
