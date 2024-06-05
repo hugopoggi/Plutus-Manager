@@ -43,7 +43,8 @@ public class UsuarioService {
             existingUsuario.setCEP(usuarioDetails.getCEP());
             existingUsuario.setRua(usuarioDetails.getRua());
             existingUsuario.setBairro(usuarioDetails.getBairro());
-            existingUsuario.setNumero(usuarioDetails.getNumero());
+            existingUsuario.setNumeroresidencia(usuarioDetails.getNumeroresidencia());
+            existingUsuario.setTelefone(usuarioDetails.getTelefone());
             existingUsuario.setCidade(usuarioDetails.getCidade());
             existingUsuario.setPais(usuarioDetails.getPais());
             existingUsuario.setEstado(usuarioDetails.getEstado());

@@ -42,7 +42,10 @@ public class Usuario {
     private String bairro;
 
      @Column(nullable = false)
-    private String numero;
+    private String numeroresidencia;
+
+     @Column
+     private String telefone;
 
     @Column(nullable = false)
     private String cidade;
@@ -60,8 +63,6 @@ public class Usuario {
     @Column
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate vencimento;
-
-
 
     @OneToMany(mappedBy = "usuario")
     private List<Produto> produtos = new ArrayList<>();
@@ -157,12 +158,20 @@ public class Usuario {
         this.bairro = bairro;
     }
 
-    public String getNumero() {
-        return numero;
+    public String getNumeroresidencia() {
+        return numeroresidencia;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public void setNumeroresidencia(String numeroresidencia) {
+        this.numeroresidencia = numeroresidencia;
     }
 
     public String getCidade() {
