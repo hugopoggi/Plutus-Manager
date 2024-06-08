@@ -31,7 +31,7 @@ public class ProdutoService {
     }
 
     public Produto update(Long id, Produto produtoDetails) {
-        Optional<Produto> optionalProduto = produtoRepository.findById(produtoDetails.getProdutoId());
+        Optional<Produto> optionalProduto = produtoRepository.findById(id);
         if (optionalProduto.isPresent()) {
             Produto existingProduto = optionalProduto.get();
             existingProduto.setDescricao(produtoDetails.getDescricao());

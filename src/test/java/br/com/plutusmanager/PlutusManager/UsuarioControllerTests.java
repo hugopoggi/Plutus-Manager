@@ -1,7 +1,7 @@
-
 import br.com.plutusmanager.PlutusManager.controller.UsuarioController;
 import br.com.plutusmanager.PlutusManager.entities.Usuario;
 import br.com.plutusmanager.PlutusManager.service.UsuarioService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -11,13 +11,19 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -30,10 +36,20 @@ public class UsuarioControllerTests {
     }
 
     @Autowired
+    private WebApplicationContext webApplicationContext;
+
+    private MockMvc mockMvc;
+
+    @Autowired
     private UsuarioController usuarioController;
 
     @MockBean
     private UsuarioService usuarioService;
+
+    @BeforeEach
+    public void setup() {
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+    }
 
     @Test
     public void testFindAll_deveRetornarListaDeUsuarios_quandoExistemUsuarios() {
@@ -104,32 +120,48 @@ public class UsuarioControllerTests {
         UUID id = UUID.randomUUID();
         Usuario usuarioMockado = new Usuario();
         usuarioMockado.setUsuarioId(id);
+        usuarioMockado.setNomeUsuario("Nome Antigo");
+        usuarioMockado.setTelefone("123456789");
+        usuarioMockado.setEmail("antigo@example.com");
 
-        Mockito.when(usuarioService.findById(id)).thenReturn(Optional.of(usuarioMockado));
-        Mockito.when(usuarioService.save(usuarioMockado)).thenReturn(usuarioMockado);
-
+        // Mock para o usuário que será atualizado
         Usuario usuarioParaAtualizar = new Usuario();
         usuarioParaAtualizar.setNomeUsuario("Nome Atualizado");
+        usuarioParaAtualizar.setTelefone("987654321");
+        usuarioParaAtualizar.setEmail("atualizado@example.com");
+
+        // Mock do serviço para retornar o usuário atualizado
+        Usuario usuarioAtualizado = new Usuario();
+        usuarioAtualizado.setUsuarioId(id);
+        usuarioAtualizado.setNomeUsuario("Nome Atualizado");
+        usuarioAtualizado.setTelefone("987654321");
+        usuarioAtualizado.setEmail("atualizado@example.com");
+
+        Mockito.when(usuarioService.update(id, usuarioParaAtualizar)).thenReturn(usuarioAtualizado);
 
         ResponseEntity<Usuario> respostaEntity = usuarioController.update(id, usuarioParaAtualizar);
 
         assertEquals(HttpStatus.OK, respostaEntity.getStatusCode());
+        assertNotNull(respostaEntity.getBody());
         assertEquals("Nome Atualizado", respostaEntity.getBody().getNomeUsuario());
+        assertEquals("987654321", respostaEntity.getBody().getTelefone());
+        assertEquals("atualizado@example.com", respostaEntity.getBody().getEmail());
     }
 
     @Test
-    public void testUpdate_deveRetornarNotFound_quandoUsuarioNaoExiste() {
+    public void testUpdate_deveRetornarNotFound_quandoUsuarioNaoExiste() throws Exception {
         UUID id = UUID.randomUUID();
+        Usuario usuarioDetails = new Usuario();
+        usuarioDetails.setNomeUsuario("Nome Atualizado");
+        usuarioDetails.setEmail("email@exemplo.com");
 
-        Mockito.when(usuarioService.findById(id)).thenReturn(Optional.empty());
+        Mockito.when(usuarioService.update(Mockito.eq(id), Mockito.any(Usuario.class)))
+                .thenThrow(new RuntimeException("Id do usuario não encontrado: " + id));
 
-        Usuario usuarioParaAtualizar = new Usuario();
-        usuarioParaAtualizar.setNomeUsuario("Nome Atualizado");
-
-        ResponseEntity<Usuario> respostaEntity = usuarioController.update(id, usuarioParaAtualizar);
-
-        assertEquals(HttpStatus.NOT_FOUND, respostaEntity.getStatusCode());
-        assertNull(respostaEntity.getBody());
+        mockMvc.perform(put("/api/usuarios/" + id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"nomeUsuario\": \"Nome Atualizado\", \"email\": \"email@exemplo.com\"}"))
+                .andExpect(status().isNotFound());
     }
 
     @Test

@@ -17,7 +17,7 @@ public class Pedido {
     @Column(name = "pedido_id", nullable = false, updatable = false)
     private Long pedidoId;
 
-    /*@Column(nullable = false)
+    /*@Column(nullable = true)
     private BigDecimal valorTotal;
     */
     @Column(nullable = false)

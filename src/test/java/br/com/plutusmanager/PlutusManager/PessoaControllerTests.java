@@ -120,17 +120,35 @@ public class PessoaControllerTests {
         UUID id = UUID.randomUUID();
         Pessoa pessoaMockada = new Pessoa();
         pessoaMockada.setPessoaId(id);
+        pessoaMockada.setNome("Nome Antigo");
+        pessoaMockada.setTelefone("123456789");
+        pessoaMockada.setEmail("antigo@example.com");
 
-        Mockito.when(pessoaService.findById(id)).thenReturn(Optional.of(pessoaMockada));
-        Mockito.when(pessoaService.save(pessoaMockada)).thenReturn(pessoaMockada);
-
+        // Mock para a pessoa que será atualizada
         Pessoa pessoaParaAtualizar = new Pessoa();
         pessoaParaAtualizar.setNome("Nome Atualizado");
+        pessoaParaAtualizar.setTelefone("987654321");
+        pessoaParaAtualizar.setEmail("atualizado@example.com");
 
+        // Mock para a pessoa atualizada
+        Pessoa pessoaAtualizada = new Pessoa();
+        pessoaAtualizada.setPessoaId(id);
+        pessoaAtualizada.setNome("Nome Atualizado");
+        pessoaAtualizada.setTelefone("987654321");
+        pessoaAtualizada.setEmail("atualizado@example.com");
+
+        // Mock do serviço para retornar a pessoa atualizada
+        Mockito.when(pessoaService.update(id, pessoaParaAtualizar)).thenReturn(pessoaAtualizada);
+
+        // Executar a atualização
         ResponseEntity<Pessoa> respostaEntity = pessoaController.update(id, pessoaParaAtualizar);
 
+        // Verificar a resposta
         assertEquals(HttpStatus.OK, respostaEntity.getStatusCode());
+        assertNotNull(respostaEntity.getBody());
         assertEquals("Nome Atualizado", respostaEntity.getBody().getNome());
+        assertEquals("987654321", respostaEntity.getBody().getTelefone());
+        assertEquals("atualizado@example.com", respostaEntity.getBody().getEmail());
     }
 
     @Test

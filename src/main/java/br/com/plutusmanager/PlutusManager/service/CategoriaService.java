@@ -31,7 +31,7 @@ public class CategoriaService {
     }
 
     public Categoria update(Long id, Categoria categoriaDetails){
-        Optional<Categoria> optionalCategoria = categoriaRepository.findById(categoriaDetails.getCategoriaId());
+        Optional<Categoria> optionalCategoria = categoriaRepository.findById(id);
         if(optionalCategoria.isPresent()){
             Categoria existingCategoria = optionalCategoria.get();
             existingCategoria.setDescricao(categoriaDetails.getDescricao());

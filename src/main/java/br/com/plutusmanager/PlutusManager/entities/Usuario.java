@@ -60,7 +60,7 @@ public class Usuario {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
 
-    @Column
+    @Column(nullable = true)
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate vencimento;
 

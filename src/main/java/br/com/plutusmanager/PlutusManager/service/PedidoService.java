@@ -33,7 +33,7 @@ public class PedidoService {
     }
 
     public Pedido update(Long id, Pedido pedidoDetails) {
-        Optional<Pedido> optionalPedido = pedidoRepository.findById(pedidoDetails.getPedidoId());
+        Optional<Pedido> optionalPedido = pedidoRepository.findById(id);
         if (optionalPedido.isPresent()) {
             Pedido existingPedido = optionalPedido.get();
             existingPedido.setDataPedido(pedidoDetails.getDataPedido());

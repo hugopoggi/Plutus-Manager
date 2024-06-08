@@ -32,7 +32,7 @@ public class PessoaService {
     }
     
     public Pessoa update(UUID id, Pessoa pessoaDetails) {
-        Optional<Pessoa> optionalPessoa = pessoaRepository.findById(pessoaDetails.getPessoaId());
+        Optional<Pessoa> optionalPessoa = pessoaRepository.findById(id);
         if (optionalPessoa.isPresent()) {
             Pessoa existingPessoa = optionalPessoa.get();
             existingPessoa.setNome(pessoaDetails.getNome());
