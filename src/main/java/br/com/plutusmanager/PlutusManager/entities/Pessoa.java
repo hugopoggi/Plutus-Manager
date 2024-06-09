@@ -26,8 +26,13 @@ public class Pessoa {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
     @OneToMany(mappedBy = "pessoa")
     private List<Pedido> pedido =new ArrayList<>();
+
 
     public UUID getPessoaId() {
         return pessoaId;

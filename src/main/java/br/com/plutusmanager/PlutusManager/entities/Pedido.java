@@ -17,9 +17,9 @@ public class Pedido {
     @Column(name = "pedido_id", nullable = false, updatable = false)
     private Long pedidoId;
 
-    /*@Column(nullable = true)
+    @Column(nullable = true)
     private BigDecimal valorTotal;
-    */
+
     @Column(nullable = false)
     private LocalDateTime dataPedido;
 
@@ -48,7 +48,7 @@ public class Pedido {
     public void setPedidoId(Long pedidoId) {
         this.pedidoId = pedidoId;
     }
-    /*
+
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
     }
@@ -56,7 +56,7 @@ public class Pedido {
     public BigDecimal getValorTotal() {
         return valorTotal;
     }
-    */
+
     public LocalDateTime getDataPedido() {
         return dataPedido;
     }

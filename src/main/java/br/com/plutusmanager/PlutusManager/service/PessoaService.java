@@ -23,6 +23,10 @@ public class PessoaService {
         return pessoaRepository.findById(id);
     }
 
+    public Pessoa findByNome(String nome) {
+        return pessoaRepository.findByNome(nome);
+    }
+
     public Pessoa save(Pessoa pessoa) {
         return pessoaRepository.save(pessoa);
     }

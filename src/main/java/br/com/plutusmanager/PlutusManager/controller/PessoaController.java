@@ -30,6 +30,16 @@ public class PessoaController {
         return pessoa.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @GetMapping("/{nomePessoa}")
+    public ResponseEntity<Pessoa> findByNomePessoa(@PathVariable String nomePessoa) {
+        Pessoa pessoa = pessoaService.findByNome(nomePessoa);
+        if (pessoa != null) {
+            return ResponseEntity.ok(pessoa);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Pessoa> create(@RequestBody Pessoa pessoa) {
         Pessoa newPessoa = pessoaService.save(pessoa);
