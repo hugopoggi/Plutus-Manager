@@ -42,6 +42,16 @@ public class ProdutoController {
         return ResponseEntity.ok().body(produtos);
     }
 
+    @GetMapping("/{descricaoProduto}")
+    public ResponseEntity<Produto> findByDescricaoProduto(@PathVariable String descricaoProduto) {
+        Produto produto = produtoService.findByDescricao(descricaoProduto);
+        if (produto != null) {
+            return ResponseEntity.ok(produto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Produto> create(@RequestBody Produto produto) {
         try {

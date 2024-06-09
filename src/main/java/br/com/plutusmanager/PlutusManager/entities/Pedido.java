@@ -1,7 +1,6 @@
 package br.com.plutusmanager.PlutusManager.entities;
 
 import jakarta.persistence.*;
-import org.springframework.cglib.core.Local;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

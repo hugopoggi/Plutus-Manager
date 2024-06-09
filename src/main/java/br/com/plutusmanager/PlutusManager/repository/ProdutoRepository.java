@@ -11,6 +11,7 @@ import java.util.UUID;
 
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
-
     List<Produto> findByCategoriaCategoriaId(Long categoriaId);
+
+    Produto findByDescricao(String descricao);
 }

@@ -30,6 +30,10 @@ public class ProdutoService {
         return produtoRepository.findByCategoriaCategoriaId(categoriaId);
     }
 
+    public Produto findByDescricao(String descricao) {
+        return produtoRepository.findByDescricao(descricao);
+    }
+
     public Produto save(Produto produto, long categoriaId) {
         Optional<Categoria> optionalCategoria = categoriaRepository.findById(categoriaId);
         if (optionalCategoria.isPresent()) {
@@ -38,7 +42,6 @@ public class ProdutoService {
         } else {
             throw new RuntimeException("Id da categoria não encontrado: " + categoriaId);
         }
-
     }
 
     public void deleteById(Long id) {
