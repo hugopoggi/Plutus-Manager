@@ -1,11 +1,13 @@
 package br.com.plutusmanager.PlutusManager.entities;
 
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "tb_pedido_item")
 public class PedidoItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pedido_item_id")
@@ -14,11 +16,12 @@ public class PedidoItem {
     @Column(nullable = false)
     private Integer quantidade;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pedido_id")
+    @JsonBackReference
     private Pedido pedido;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "produto_id")
     private Produto produto;
 

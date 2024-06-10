@@ -2,7 +2,6 @@ package br.com.plutusmanager.PlutusManager.entities;
 
 import jakarta.persistence.*;
 
-
 import java.math.BigDecimal;
 
 @Entity
@@ -22,18 +21,17 @@ public class Produto {
     @Column(nullable = false)
     private BigDecimal preco;
 
-
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id")
-    private Categoria categoria;
-
-    @ManyToOne
     @JoinColumn(name = "pessoa_id")
     private Pessoa pessoa;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
     public Long getProdutoId() {
         return produtoId;
@@ -79,5 +77,29 @@ public class Produto {
     @Override
     public int hashCode() {
         return produtoId.hashCode();
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 }

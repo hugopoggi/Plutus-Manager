@@ -1,5 +1,8 @@
 package br.com.plutusmanager.PlutusManager.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import org.springframework.cglib.core.Local;
 
@@ -8,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_Pedido")
@@ -24,15 +28,18 @@ public class Pedido {
     private LocalDateTime dataPedido;
 
     @Column
-    private String formaDePagamento;
+    @Enumerated(EnumType.STRING)
+    private FormaDePagamento formaDePagamento;
+
+    public enum FormaDePagamento {
+        DINHEIRO,
+        PIX,
+        CARTAO_DEBITO,
+        CARTAO_CREDITO
+    };
 
     @Enumerated(EnumType.STRING)
     private StatusPedido status;
-
-    public Collection<PedidoItem> getItens() {
-        return itens;
-    }
-
 
     public enum StatusPedido {
         PENDENTE,
@@ -40,6 +47,21 @@ public class Pedido {
         CANCELADO;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "pessoa_id")
+    private Pessoa pessoa;
+
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<PedidoItem> itens = new ArrayList<>();
+
+    public Collection<PedidoItem> getItens() {
+        return itens;
+    }
 
     public Long getPedidoId() {
         return pedidoId;
@@ -48,6 +70,7 @@ public class Pedido {
     public void setPedidoId(Long pedidoId) {
         this.pedidoId = pedidoId;
     }
+
     /*
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
@@ -57,6 +80,7 @@ public class Pedido {
         return valorTotal;
     }
     */
+
     public LocalDateTime getDataPedido() {
         return dataPedido;
     }
@@ -65,11 +89,11 @@ public class Pedido {
         this.dataPedido = dataPedido;
     }
 
-    public String getFormaDePagamento() {
+    public FormaDePagamento getFormaDePagamento() {
         return formaDePagamento;
     }
 
-    public void setFormaDePagamento(String formaDePagamento) {
+    public void setFormaDePagamento(FormaDePagamento formaDePagamento) {
         this.formaDePagamento = formaDePagamento;
     }
 
@@ -81,21 +105,21 @@ public class Pedido {
         this.status = status;
     }
 
-    /*
-            Quando o fetch type é definido como EAGER, os dados relacionados são carregados imediatamente junto com a entidade principal.
-            Isso significa que, ao buscar a entidade principal, todas as entidades relacionadas marcadas como EAGER são também carregadas
-            do banco de dados em uma única consulta ou em múltiplas consultas, dependendo da estratégia de implementação.
-             */
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "pessoa_id")
-    private Pessoa pessoa;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PedidoItem> itens = new ArrayList<>();
+    public Pessoa getPessoa() {
+        return pessoa;
+    }
+
+    public void setPessoa(Pessoa pessoa) {
+        this.pessoa = pessoa;
+    }
 
     @Override
     public boolean equals(Object o) {
