@@ -28,6 +28,10 @@ public class PessoaService {
         return pessoaRepository.findById(id);
     }
 
+    public Pessoa findByNome(String nome) {
+        return pessoaRepository.findByNome(nome);
+    }
+
     public Pessoa save(Pessoa pessoa) {
         UUID usuarioId = pessoa.getUsuario().getUsuarioId();
         pessoa.setUsuario(usuarioRepository.findById(usuarioId)

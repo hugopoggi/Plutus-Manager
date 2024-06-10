@@ -38,6 +38,14 @@ public class ProdutoService {
         return produtoRepository.findById(id);
     }
 
+    public List<Produto> findByCategoria(Long categoriaId) {
+        return produtoRepository.findByCategoriaCategoriaId(categoriaId);
+    }
+
+    public Produto findByDescricao(String descricao) {
+        return produtoRepository.findByDescricao(descricao);
+    }
+
     public Produto save(Produto produto) {
 
         Long categoriaId = produto.getCategoria().getCategoriaId();
@@ -70,6 +78,7 @@ public class ProdutoService {
             existingProduto.setDescricao(produtoDetails.getDescricao());
             existingProduto.setCusto(produtoDetails.getCusto());
             existingProduto.setPreco(produtoDetails.getPreco());
+            existingProduto.setCategoria(produtoDetails.getCategoria());
             return produtoRepository.save(existingProduto);
         } else {
             throw new RuntimeException("Id do pedido não encontrado: " + produtoDetails.getProdutoId());

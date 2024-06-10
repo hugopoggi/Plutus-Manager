@@ -1,17 +1,13 @@
 package br.com.plutusmanager.PlutusManager.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import org.springframework.cglib.core.Local;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_Pedido")
@@ -21,9 +17,9 @@ public class Pedido {
     @Column(name = "pedido_id", nullable = false, updatable = false)
     private Long pedidoId;
 
-    /*@Column(nullable = true)
+    @Column(nullable = true)
     private BigDecimal valorTotal;
-    */
+
     @Column(nullable = false)
     private LocalDateTime dataPedido;
 
@@ -71,7 +67,6 @@ public class Pedido {
         this.pedidoId = pedidoId;
     }
 
-    /*
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
     }
@@ -79,7 +74,6 @@ public class Pedido {
     public BigDecimal getValorTotal() {
         return valorTotal;
     }
-    */
 
     public LocalDateTime getDataPedido() {
         return dataPedido;

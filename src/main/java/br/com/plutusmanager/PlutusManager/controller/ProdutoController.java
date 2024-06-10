@@ -14,13 +14,17 @@ import java.util.Optional;
 @RequestMapping("/api/produto")
 public class ProdutoController {
 
+
     @Autowired
     private ProdutoService produtoService;
 
     @GetMapping
     public ResponseEntity<List<Produto>> findAll() {
         List<Produto> produtos = produtoService.findAll();
-        return ResponseEntity.ok().body(produtos);
+        if (produtos.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(produtos);
     }
 
     @GetMapping("/{id}")
@@ -29,10 +33,33 @@ public class ProdutoController {
         return produto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @GetMapping("/categoria/{categoriaId}")
+    public ResponseEntity<List<Produto>> findByCategoria(@PathVariable Long categoriaId) {
+        List<Produto> produtos = produtoService.findByCategoria(categoriaId);
+        if (produtos.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.ok().body(produtos);
+    }
+
+    @GetMapping("/{descricaoProduto}")
+    public ResponseEntity<Produto> findByDescricaoProduto(@PathVariable String descricaoProduto) {
+        Produto produto = produtoService.findByDescricao(descricaoProduto);
+        if (produto != null) {
+            return ResponseEntity.ok(produto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
     @PostMapping
     public ResponseEntity<Produto> create(@RequestBody Produto produto) {
-        Produto newProduto = produtoService.save(produto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newProduto);
+        try {
+            Produto newProduto = produtoService.save(produto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(newProduto);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @PutMapping("/{id}")

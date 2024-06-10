@@ -65,6 +65,15 @@ public class Produto {
         this.preco = preco;
     }
 
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,14 +86,6 @@ public class Produto {
     @Override
     public int hashCode() {
         return produtoId.hashCode();
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
     }
 
     public Pessoa getPessoa() {

@@ -5,13 +5,13 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_Categoria")
 public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "categoria_Id")
     private Long categoriaId;
 
     @Column(unique = true, nullable = false , length = 50)
@@ -44,14 +44,14 @@ public class Categoria {
     }
 
     public Usuario getUsuario() {
-
         return usuario;
     }
 
     public void setUsuario(Usuario usuario) {
-
         this.usuario = usuario;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
