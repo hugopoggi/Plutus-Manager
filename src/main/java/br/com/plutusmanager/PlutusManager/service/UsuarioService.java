@@ -1,5 +1,6 @@
 package br.com.plutusmanager.PlutusManager.service;
 
+import br.com.plutusmanager.PlutusManager.dto.LoginRequestDto;
 import br.com.plutusmanager.PlutusManager.entities.Usuario;
 import br.com.plutusmanager.PlutusManager.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,15 @@ public class UsuarioService {
 
     public Optional<Usuario> findById(UUID id) {
         return usuarioRepository.findById(id);
+    }
+
+    public UUID findByLoginAndPassword(LoginRequestDto loginRequest) {
+        Usuario usuario = usuarioRepository.findByLoginUsuarioAndSenha(loginRequest.getLoginUsuario(), loginRequest.getSenha());
+        if (usuario != null) {
+            return usuario.getUsuarioId();
+        } else {
+            throw new RuntimeException("Usuário não encontrado");
+        }
     }
 
     public Usuario save(Usuario usuario) {

@@ -12,6 +12,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "usuario_id", nullable = false, updatable = false)
@@ -41,11 +42,11 @@ public class Usuario {
     @Column(nullable = false)
     private String bairro;
 
-     @Column(name = "numero_residencia", nullable = false)
+    @Column(name = "numero_residencia", nullable = false)
     private String numeroResidencia;
 
-     @Column
-     private String telefone;
+    @Column
+    private String telefone;
 
     @Column(nullable = false)
     private String cidade;

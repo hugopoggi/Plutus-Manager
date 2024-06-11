@@ -2,21 +2,28 @@ package br.com.plutusmanager.PlutusManager.service;
 
 import br.com.plutusmanager.PlutusManager.entities.Categoria;
 import br.com.plutusmanager.PlutusManager.entities.Produto;
+import br.com.plutusmanager.PlutusManager.entities.Usuario;
 import br.com.plutusmanager.PlutusManager.repository.CategoriaRepository;
 import br.com.plutusmanager.PlutusManager.repository.ProdutoRepository;
+import br.com.plutusmanager.PlutusManager.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProdutoService {
 
     @Autowired
     private ProdutoRepository produtoRepository;
+
     @Autowired
     private CategoriaRepository categoriaRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     public List<Produto> findAll() {
         return produtoRepository.findAll();
@@ -34,14 +41,20 @@ public class ProdutoService {
         return produtoRepository.findByDescricao(descricao);
     }
 
-    public Produto save(Produto produto, long categoriaId) {
-        Optional<Categoria> optionalCategoria = categoriaRepository.findById(categoriaId);
-        if (optionalCategoria.isPresent()) {
-            produto.setCategoria(optionalCategoria.get());
-            return produtoRepository.save(produto);
-        } else {
-            throw new RuntimeException("Id da categoria não encontrado: " + categoriaId);
-        }
+    public Produto save(Produto produto) {
+
+        Long categoriaId = produto.getCategoria().getCategoriaId();
+        Categoria categoria = categoriaRepository.findById(categoriaId)
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
+        produto.setCategoria(categoria);
+
+        UUID usuarioId = produto.getUsuario().getUsuarioId();
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        produto.setUsuario(usuario);
+
+        return produtoRepository.save(produto);
+
     }
 
     public void deleteById(Long id) {

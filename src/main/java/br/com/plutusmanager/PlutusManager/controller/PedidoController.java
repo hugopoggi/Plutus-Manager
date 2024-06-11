@@ -32,14 +32,18 @@ public class PedidoController {
 
     @PostMapping
     public ResponseEntity<Pedido> create(@RequestBody Pedido pedido) {
-        Pedido newPedido = pedidoService.save(pedido);
-        return ResponseEntity.status(HttpStatus.CREATED).body(newPedido);
+        try {
+            Pedido newPedido = pedidoService.save(pedido);
+            return ResponseEntity.status(HttpStatus.CREATED).body(newPedido);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 
-    @PostMapping("/{id}/item")
-    public ResponseEntity<Pedido> addItemToPedido(@PathVariable Long id, @RequestBody Produto produto, @RequestParam Integer quantidade) {
+    @PostMapping("/{pedidoId}/item")
+    public ResponseEntity<Pedido> addItemToPedido(@PathVariable Long pedidoId, @RequestBody Produto produto, @RequestParam Integer quantidade) {
         try {
-            Pedido pedido = pedidoService.addItemToPedido(id, produto, quantidade);
+            Pedido pedido = pedidoService.addItemToPedido(pedidoId, produto, quantidade);
             return ResponseEntity.ok().body(pedido);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

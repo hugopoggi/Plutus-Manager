@@ -55,7 +55,7 @@ public class ProdutoController {
     @PostMapping
     public ResponseEntity<Produto> create(@RequestBody Produto produto) {
         try {
-            Produto newProduto = produtoService.save(produto, produto.getCategoria().getCategoriaId());
+            Produto newProduto = produtoService.save(produto);
             return ResponseEntity.status(HttpStatus.CREATED).body(newProduto);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
