@@ -1,5 +1,6 @@
 package br.com.plutusmanager.PlutusManager.controller;
 
+import br.com.plutusmanager.PlutusManager.dto.LoginRequestDto;
 import br.com.plutusmanager.PlutusManager.entities.Usuario;
 import br.com.plutusmanager.PlutusManager.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +54,15 @@ public class UsuarioController {
         }
         usuarioService.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<UUID> findByLoginAndPassword(@RequestBody LoginRequestDto loginRequest) {
+        try {
+            UUID usuarioId = usuarioService.findByLoginAndPassword(loginRequest);
+            return ResponseEntity.ok(usuarioId);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }
