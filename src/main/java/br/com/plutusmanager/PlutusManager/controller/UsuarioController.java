@@ -37,6 +37,16 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newUsuario);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<UUID> findByLoginAndPassword(@RequestBody LoginRequestDto loginRequest) {
+        try {
+            UUID usuarioId = usuarioService.findByLoginAndPassword(loginRequest);
+            return ResponseEntity.ok(usuarioId);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Usuario> update(@PathVariable UUID id, @RequestBody Usuario usuarioDetails) {
         try {
@@ -56,13 +66,4 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<UUID> findByLoginAndPassword(@RequestBody LoginRequestDto loginRequest) {
-        try {
-            UUID usuarioId = usuarioService.findByLoginAndPassword(loginRequest);
-            return ResponseEntity.ok(usuarioId);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-    }
 }

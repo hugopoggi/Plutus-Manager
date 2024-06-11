@@ -24,6 +24,15 @@ public class UsuarioService {
         return usuarioRepository.findById(id);
     }
 
+    public UUID findByLoginAndPassword(LoginRequestDto loginRequest) {
+        Usuario usuario = usuarioRepository.findByLoginUsuarioAndSenha(loginRequest.getLoginUsuario(), loginRequest.getSenha());
+        if (usuario != null) {
+            return usuario.getUsuarioId();
+        } else {
+            throw new RuntimeException("Usuário não encontrado");
+        }
+    }
+
     public Usuario save(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
@@ -54,15 +63,6 @@ public class UsuarioService {
             return usuarioRepository.save(existingUsuario);
         } else {
             throw new RuntimeException("Usuario não encontrado por ID " + id);
-        }
-    }
-
-    public UUID findByLoginAndPassword(LoginRequestDto loginRequest) {
-        Usuario usuario = usuarioRepository.findByLoginUsuarioAndSenha(loginRequest.getLoginUsuario(), loginRequest.getSenha());
-        if (usuario != null) {
-            return usuario.getUsuarioId();
-        } else {
-            throw new RuntimeException("Usuário não encontrado");
         }
     }
 }

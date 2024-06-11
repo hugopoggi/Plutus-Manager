@@ -1,11 +1,9 @@
 package br.com.plutusmanager.PlutusManager.service;
 
 import br.com.plutusmanager.PlutusManager.entities.Categoria;
-import br.com.plutusmanager.PlutusManager.entities.Pessoa;
 import br.com.plutusmanager.PlutusManager.entities.Produto;
 import br.com.plutusmanager.PlutusManager.entities.Usuario;
 import br.com.plutusmanager.PlutusManager.repository.CategoriaRepository;
-import br.com.plutusmanager.PlutusManager.repository.PessoaRepository;
 import br.com.plutusmanager.PlutusManager.repository.ProdutoRepository;
 import br.com.plutusmanager.PlutusManager.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +21,6 @@ public class ProdutoService {
 
     @Autowired
     private CategoriaRepository categoriaRepository;
-
-    @Autowired
-    private PessoaRepository pessoaRepository;
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -52,11 +47,6 @@ public class ProdutoService {
         Categoria categoria = categoriaRepository.findById(categoriaId)
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
         produto.setCategoria(categoria);
-
-        UUID pessoaId = produto.getPessoa().getPessoaId();
-        Pessoa pessoa = pessoaRepository.findById(pessoaId)
-                .orElseThrow(() -> new RuntimeException("Pessoa não encontrada"));
-        produto.setPessoa(pessoa);
 
         UUID usuarioId = produto.getUsuario().getUsuarioId();
         Usuario usuario = usuarioRepository.findById(usuarioId)

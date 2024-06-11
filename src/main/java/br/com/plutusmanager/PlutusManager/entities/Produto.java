@@ -26,10 +26,6 @@ public class Produto {
     private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "pessoa_id")
-    private Pessoa pessoa;
-
-    @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
 
@@ -86,14 +82,6 @@ public class Produto {
     @Override
     public int hashCode() {
         return produtoId.hashCode();
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
     }
 
     public Usuario getUsuario() {
