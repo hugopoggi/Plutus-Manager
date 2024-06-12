@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/pessoas")
@@ -25,7 +24,7 @@ public class PessoaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Pessoa> findById(@PathVariable UUID id) {
+    public ResponseEntity<Pessoa> findById(@PathVariable Long id) {
         Optional<Pessoa> pessoa = pessoaService.findById(id);
         return pessoa.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
@@ -47,7 +46,7 @@ public class PessoaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Pessoa> update(@PathVariable UUID id, @RequestBody Pessoa pessoaDetails) {
+    public ResponseEntity<Pessoa> update(@PathVariable Long id, @RequestBody Pessoa pessoaDetails) {
         try {
             Pessoa updatedPessoa = pessoaService.update(id, pessoaDetails);
             return ResponseEntity.ok(updatedPessoa);
@@ -57,7 +56,7 @@ public class PessoaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         if (!pessoaService.findById(id).isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

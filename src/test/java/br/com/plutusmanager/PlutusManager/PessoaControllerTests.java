@@ -79,7 +79,7 @@ public class PessoaControllerTests {
 
     @Test
     public void testFindById_deveRetornarUsuario_quandoExiste() {
-        UUID id = UUID.randomUUID();
+        Long id = Long.valueOf(1L);
         Pessoa pessoaMockada = new Pessoa();
         pessoaMockada.setPessoaId(id);
 
@@ -93,7 +93,7 @@ public class PessoaControllerTests {
 
     @Test
     public void testFindById_deveRetornarNotFound_quandoUsuarioNaoEncontrado() {
-        UUID id = UUID.randomUUID();
+        Long id = Long.valueOf(1L);
 
         Mockito.when(pessoaService.findById(id)).thenReturn(Optional.empty());
 
@@ -117,7 +117,7 @@ public class PessoaControllerTests {
 
     @Test
     public void testUpdate_deveAtualizarUsuario_eRetornarUsuarioAtualizado_quandoUsuarioExiste() {
-        UUID id = UUID.randomUUID();
+        Long id = Long.valueOf(1L);
         Pessoa pessoaMockada = new Pessoa();
         pessoaMockada.setPessoaId(id);
         pessoaMockada.setNome("Nome Antigo");
@@ -153,7 +153,7 @@ public class PessoaControllerTests {
 
     @Test
     public void testUpdate_deveRetornarNotFound_quandoUsuarioNaoExiste() throws Exception {
-        UUID id = UUID.randomUUID();
+        Long id = Long.valueOf(1L);
         Pessoa pessoaDetails = new Pessoa();
         pessoaDetails.setNome("Nome Atualizado");
         pessoaDetails.setEmail("email@exemplo.com");
@@ -169,7 +169,7 @@ public class PessoaControllerTests {
 
     @Test
     public void testDelete_deveRemoverUsuario_eRetornarNoContent_quandoUsuarioExiste() {
-        UUID id = UUID.randomUUID();
+        Long id = Long.valueOf(1L);
 
         Mockito.when(pessoaService.findById(id)).thenReturn(Optional.of(new Pessoa()));
 

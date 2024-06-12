@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class PedidoService {
@@ -45,7 +44,7 @@ public class PedidoService {
         pedido.setUsuario(usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado")));
 
-        UUID pessoaId = pedido.getPessoa().getPessoaId();
+        Long pessoaId = pedido.getPessoa().getPessoaId();
         pedido.setPessoa(pessoaRepository.findById(pessoaId)
                 .orElseThrow(() -> new RuntimeException("Pessoa não encontrado")));
         /*

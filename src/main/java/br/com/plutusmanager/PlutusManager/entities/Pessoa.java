@@ -1,14 +1,12 @@
 package br.com.plutusmanager.PlutusManager.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_pessoa")
@@ -18,9 +16,9 @@ import java.util.UUID;
 public class Pessoa {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pessoa_id", nullable = false, updatable = false)
-    private UUID pessoaId;
+    private Long pessoaId;
 
     @Column(nullable = false)
     private String nome;
@@ -66,11 +64,11 @@ public class Pessoa {
     private List<Pedido> pedido = new ArrayList<>();
 
 
-    public UUID getPessoaId() {
+    public Long getPessoaId() {
         return pessoaId;
     }
 
-    public void setPessoaId(UUID pessoaId) {
+    public void setPessoaId(Long pessoaId) {
         this.pessoaId = pessoaId;
     }
 

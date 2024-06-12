@@ -1,7 +1,6 @@
 package br.com.plutusmanager.PlutusManager.service;
 
 import br.com.plutusmanager.PlutusManager.entities.Pessoa;
-import br.com.plutusmanager.PlutusManager.entities.Usuario;
 import br.com.plutusmanager.PlutusManager.repository.PessoaRepository;
 import br.com.plutusmanager.PlutusManager.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class PessoaService {
@@ -24,7 +22,7 @@ public class PessoaService {
         return pessoaRepository.findAll();
     }
 
-    public Optional<Pessoa> findById(UUID id) {
+    public Optional<Pessoa> findById(Long id) {
         return pessoaRepository.findById(id);
     }
 
@@ -39,11 +37,11 @@ public class PessoaService {
         return pessoaRepository.save(pessoa);
     }
 
-    public void deleteById(UUID id) {
+    public void deleteById(Long id) {
         pessoaRepository.deleteById(id);
     }
     
-    public Pessoa update(UUID id, Pessoa pessoaDetails) {
+    public Pessoa update(Long id, Pessoa pessoaDetails) {
         Optional<Pessoa> optionalPessoa = pessoaRepository.findById(id);
         if (optionalPessoa.isPresent()) {
             Pessoa existingPessoa = optionalPessoa.get();
