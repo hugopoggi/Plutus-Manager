@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class UsuarioService {
@@ -20,7 +19,7 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public Optional<Usuario> findById(UUID id) {
+    public Optional<Usuario> findById(Long id) {
         return usuarioRepository.findById(id);
     }
 
@@ -37,11 +36,11 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public void deleteById(UUID id) {
+    public void deleteById(Long id) {
         usuarioRepository.deleteById(id);
     }
 
-    public Usuario update(UUID id, Usuario usuarioDetails) {
+    public Usuario update(Long id, Usuario usuarioDetails) {
         Optional<Usuario> optionalUsuario = usuarioRepository.findById(id);
         if (optionalUsuario.isPresent()) {
             Usuario existingUsuario = optionalUsuario.get();

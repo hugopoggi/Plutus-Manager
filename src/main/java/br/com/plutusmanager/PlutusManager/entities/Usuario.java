@@ -7,16 +7,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "usuario_id", nullable = false, updatable = false)
-    private UUID usuarioId;
+    private Long usuarioId;
 
     @Column(nullable = false, unique = true)
     private String loginUsuario;
@@ -78,11 +77,11 @@ public class Usuario {
     private List<Pessoa> pessoa = new ArrayList<>();
 
     //get e sets
-    public UUID getUsuarioId() {
+    public Long getUsuarioId() {
         return usuarioId;
     }
 
-    public void setUsuarioId(UUID usuarioId) {
+    public void setUsuarioId(Long usuarioId) {
         this.usuarioId = usuarioId;
     }
 
