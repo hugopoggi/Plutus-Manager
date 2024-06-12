@@ -41,7 +41,7 @@ public class PedidoService {
 
     public Pedido save(Pedido pedido) {
 
-        UUID usuarioId = pedido.getUsuario().getUsuarioId();
+        Long usuarioId = pedido.getUsuario().getUsuarioId();
         pedido.setUsuario(usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado")));
 

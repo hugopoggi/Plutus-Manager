@@ -33,7 +33,7 @@ public class PessoaService {
     }
 
     public Pessoa save(Pessoa pessoa) {
-        UUID usuarioId = pessoa.getUsuario().getUsuarioId();
+        Long usuarioId = pessoa.getUsuario().getUsuarioId();
         pessoa.setUsuario(usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado")));
         return pessoaRepository.save(pessoa);

@@ -26,7 +26,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> findById(@PathVariable UUID id) {
+    public ResponseEntity<Usuario> findById(@PathVariable Long id) {
         Optional<Usuario> usuario = usuarioService.findById(id);
         return usuario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
@@ -38,9 +38,9 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UUID> findByLoginAndPassword(@RequestBody LoginRequestDto loginRequest) {
+    public ResponseEntity<Long> findByLoginAndPassword(@RequestBody LoginRequestDto loginRequest) {
         try {
-            UUID usuarioId = usuarioService.findByLoginAndPassword(loginRequest);
+            Long usuarioId = usuarioService.findByLoginAndPassword(loginRequest);
             return ResponseEntity.ok(usuarioId);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -48,7 +48,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> update(@PathVariable UUID id, @RequestBody Usuario usuarioDetails) {
+    public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody Usuario usuarioDetails) {
         try {
             Usuario updatedUsuario = usuarioService.update(id, usuarioDetails);
             return ResponseEntity.ok(updatedUsuario);
@@ -58,7 +58,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         if (!usuarioService.findById(id).isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

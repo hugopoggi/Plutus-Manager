@@ -28,7 +28,7 @@ public class CategoriaService {
     }
 
     public Categoria save (Categoria categoria){
-        UUID usuarioId = categoria.getUsuario().getUsuarioId();
+        Long usuarioId = categoria.getUsuario().getUsuarioId();
         categoria.setUsuario(usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado")));
         return categoriaRepository.save(categoria);

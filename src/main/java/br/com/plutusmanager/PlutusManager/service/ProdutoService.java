@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class ProdutoService {
@@ -48,7 +47,7 @@ public class ProdutoService {
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada"));
         produto.setCategoria(categoria);
 
-        UUID usuarioId = produto.getUsuario().getUsuarioId();
+        Long usuarioId = produto.getUsuario().getUsuarioId();
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
         produto.setUsuario(usuario);

@@ -23,7 +23,7 @@ public class UsuarioService {
         return usuarioRepository.findById(id);
     }
 
-    public UUID findByLoginAndPassword(LoginRequestDto loginRequest) {
+    public Long findByLoginAndPassword(LoginRequestDto loginRequest) {
         Usuario usuario = usuarioRepository.findByLoginUsuarioAndSenha(loginRequest.getLoginUsuario(), loginRequest.getSenha());
         if (usuario != null) {
             return usuario.getUsuarioId();
