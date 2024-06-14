@@ -42,7 +42,7 @@ public class ProdutoController {
         return ResponseEntity.ok().body(produtos);
     }
 
-    @GetMapping("/{descricaoProduto}")
+    @GetMapping("/descricao/{descricaoProduto}")
     public ResponseEntity<Produto> findByDescricaoProduto(@PathVariable String descricaoProduto) {
         Produto produto = produtoService.findByDescricao(descricaoProduto);
         if (produto != null) {
